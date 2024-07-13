@@ -1,12 +1,9 @@
-package com.example.andre.fixparser.utils;
+package com.example.andre.fixparser.api.utils;
 
 import java.nio.ByteBuffer;
 import java.util.Objects;
 
 public class ByteArrayUtils {
-
-
-
     /**
      * Byte buffer (GC free) version parseInt (modified from Integer.parseInt)
      * otherwise, need to use Integer.parseInt(new String(s)) which will allocate new memory
@@ -56,11 +53,11 @@ public class ByteArrayUtils {
                 // Accumulating negatively avoids surprises near MAX_VALUE
                 int digit = Character.digit((char)buffer.get(i), radix);
                 if (digit < 0 || result < multmin) {
-                    throw new NumberFormatException("Unknown digit " + digit);
+                    throw new NumberFormatException("failed to parse int " + new String(buffer.array(), beginIndex, endIndex - beginIndex));
                 }
                 result *= radix;
                 if (result < limit + digit) {
-                    throw new NumberFormatException("Unknown digit " + digit);
+                    throw new NumberFormatException("Unknown digit " + new String(buffer.array(), beginIndex, endIndex - beginIndex));
                 }
                 i++;
                 result -= digit;

@@ -47,7 +47,7 @@ public abstract class FixParserTestBase {
      * 167	SecurityType	String(6)	Y	Represents security type. See SecurityType (167) code set.
      * 60	TransactTime	UTCTimestamp(21)	Y	Time when the order message was submitted. UTC format YYYYMMDD-HH:MM:SS.sss in microseconds.
      */
-    final byte[] cancelOrderMessage = "35=F|1=DUMMY_ACC|54=1|".getBytes(StandardCharsets.UTF_8);
+    final byte[] cancelOrderMessage = "8=FIX.4.4|9=137|35=F|1=DUMMY_ACC|54=1|".getBytes(StandardCharsets.UTF_8);
 
     /**
      *

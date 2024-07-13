@@ -1,6 +1,6 @@
-package com.example.andre.fixparser.records;
+package com.example.andre.fixparser.demo.simple;
 
-import com.example.andre.fixparser.Record;
+import com.example.andre.fixparser.api.records.Record;
 
 import java.util.Map;
 
@@ -18,5 +18,12 @@ public class SimpleKeyValueRecord implements Record {
         }
 
         return (T) map.get(tag);
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleKeyValueRecord{" +
+                "attributes=" + map +
+                '}';
     }
 }

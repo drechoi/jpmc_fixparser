@@ -1,7 +1,10 @@
 package com.example.andre.fixparser.parser;
 
-import com.example.andre.fixparser.Record;
-import com.example.andre.fixparser.records.SimpleKeyValueRecord;
+import com.example.andre.fixparser.api.parser.FixParser;
+import com.example.andre.fixparser.api.records.Record;
+import com.example.andre.fixparser.demo.simple.SimpleFixParser;
+
+import com.example.andre.fixparser.demo.simple.SimpleKeyValueRecord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +19,10 @@ class SimpleFixFixParserTest extends FixParserTestBase {
 
         Assertions.assertInstanceOf(SimpleKeyValueRecord.class, result);
 
-        assertEquals(result.getAttribute(1, String.class), "DUMMY_ACC");
+        assertEquals(result.getAttribute(1, String.class), "A8466653547");
         assertEquals(result.getAttribute(54, Integer.class), 1);
 
-        // TODO: create generic assert in the base class
+        System.out.println(result);
     }
 
 
@@ -29,7 +32,7 @@ class SimpleFixFixParserTest extends FixParserTestBase {
 
         Assertions.assertInstanceOf(SimpleKeyValueRecord.class, result);
 
-        assertEquals(result.getAttribute(1, String.class), "DUMMY_ACC");
+        assertEquals(result.getAttribute(1, String.class), "A8466653547");
         assertEquals(result.getAttribute(54, Integer.class), 1);
 
         // TODO: create generic assert in the base class
