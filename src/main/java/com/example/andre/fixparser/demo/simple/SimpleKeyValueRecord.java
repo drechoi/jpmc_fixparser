@@ -2,22 +2,22 @@ package com.example.andre.fixparser.demo.simple;
 
 import com.example.andre.fixparser.api.records.Record;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class SimpleKeyValueRecord implements Record {
-    private final Map<Integer, String> map;
+    final Map<String, String> map;
 
-    public SimpleKeyValueRecord(Map<Integer, String> map) {
-        this.map = map;
+    public SimpleKeyValueRecord() {
+        this.map = new HashMap<>();
     }
 
-    @Override
-    public <T> T getAttribute(int tag, Class<T> clazz){
-        if (clazz.equals(Integer.class)) {
-            return (T) Integer.decode(map.get(tag));
-        }
-
-        return (T) map.get(tag);
+    public String getAttribute(int tag){
+        return map.get(String.valueOf(tag));
+    }
+    
+    public String getAttribute(String tag){
+        return map.get(tag);
     }
 
     @Override

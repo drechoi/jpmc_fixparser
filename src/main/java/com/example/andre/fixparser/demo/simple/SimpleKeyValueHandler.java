@@ -1,27 +1,24 @@
 package com.example.andre.fixparser.demo.simple;
 
-import com.example.andre.fixparser.api.parser.FixMessageHandler;
-import com.example.andre.fixparser.api.records.Record;
+import com.example.andre.fixparser.api.handlers.FixMessageHandler;
 
 import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.Map;
 
-public class SimpleKeyValueHandler implements FixMessageHandler {
-    private Map<Integer, String> currentParsedMap = null;
+public class SimpleKeyValueHandler implements FixMessageHandler<SimpleKeyValueRecord> {
+    protected SimpleKeyValueRecord currentRecord = null;
 
     @Override
     public void reset(){
-        currentParsedMap = new HashMap<>();
+        currentRecord = new SimpleKeyValueRecord();
     }
 
     @Override
     public void handleFixTag(int tag, ByteBuffer buffer, int index, int length) {
-        currentParsedMap.put(tag, new String(buffer.array(), index, length));
+        currentRecord.map.put(String.valueOf(tag), new String(buffer.array(), index, length));
     }
 
     @Override
-    public Record getRecord(){
-        return new SimpleKeyValueRecord(currentParsedMap);
+    public SimpleKeyValueRecord getResult(){
+        return currentRecord;
     }
 }
