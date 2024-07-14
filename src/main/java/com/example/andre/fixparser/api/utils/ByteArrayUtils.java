@@ -10,7 +10,6 @@ public class ByteArrayUtils {
      * */
     public static long parsePriceAsLong(byte[] bytes, int index, int length){
         throw new UnsupportedOperationException("Decimal to long is not implemented");
-//        return new BigDecimal(new String(bytes, index, length )).multiply(new BigDecimal(1000000)).longValue();
     }
 
     public static int parseInt(ByteBuffer buffer, int beginIndex, int endIndex){

@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class SimpleFixFixParserTest extends FixParserTestBase {
+public class SimpleFixFixParserTest extends FixParserTestBase {
     private final FixParser<SimpleKeyValueRecord> parser = new SimpleFixParser();
+
 
     @Test
     public void testParseNewOrder(){
@@ -18,7 +19,7 @@ class SimpleFixFixParserTest extends FixParserTestBase {
         assertEquals(result.getAttribute(1), "A8466653547");
         assertEquals(result.getAttribute(54), "1");
 
-        System.out.println(result);
+        // System.out.println(result);
     }
 
 

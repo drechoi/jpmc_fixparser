@@ -19,7 +19,7 @@ public abstract class ByteBufferRecord implements Record {
 
     // for demo reason. this buffer size is not configurable
     protected ByteBufferRecord() {
-        buffer = ByteBuffer.allocateDirect(Constants.MAX_FIX_MSG_LENGTH);
+        buffer = ByteBuffer.allocate(Constants.MAX_FIX_MSG_LENGTH);
     }
 
     public final void setAttribute(Field field, byte[] value, int index, int length) {
@@ -59,7 +59,6 @@ public abstract class ByteBufferRecord implements Record {
      * */
     public final long getPriceAttribute(Field field) {
         throw new UnsupportedOperationException("Price is not really supported");
-//        return buffer.getLong(getFieldOffset(field));
     }
 
     public abstract int getFieldOffset(Field field);

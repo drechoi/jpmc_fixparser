@@ -2,11 +2,12 @@ package com.example.andre.fixparser.demo.orders.handlers;
 
 import com.example.andre.fixparser.api.handlers.FieldMapperHandler;
 import com.example.andre.fixparser.api.handlers.FieldMapperImpl;
+import com.example.andre.fixparser.api.utils.Constants;
 import com.example.andre.fixparser.demo.orders.fields.OrderFields;
 import com.example.andre.fixparser.demo.orders.records.CancelOrderRecord;
 
 public class CancelOrderHandler extends FieldMapperHandler {
-    private static final RecordPool cancelOrderRecordObjectPool = new RecordPool(1000, CancelOrderRecord::new);
+    private static final RecordPool cancelOrderRecordObjectPool = new RecordPool(Constants.OBJECT_POOL_SIZE, CancelOrderRecord::new);
 
     private static final FieldMapperImpl fieldMapper = new FieldMapperImpl();
 

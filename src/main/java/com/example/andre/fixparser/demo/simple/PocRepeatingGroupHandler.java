@@ -34,10 +34,14 @@ public class PocRepeatingGroupHandler extends SimpleKeyValueHandler {
                 // group begin, just ignore
                 break;
             case 10002:
+                // first tag of the repeating group
+                // prepare a group object
                 currentFieldName = "GROUP_10001_" + value;
                 currentGroupItem = "{" + tag + ": " + value + ", ";
                 break;
             case 10003:
+                // last item of the repeating group
+                // adding the group object to the result record
                 currentGroupItem += tag + ": " + value + "}";
                 currentRecord.map.put(currentFieldName, currentGroupItem);
                 break;

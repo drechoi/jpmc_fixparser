@@ -9,6 +9,13 @@ public interface FixMessageHandler<T extends Record> {
     // will be called before handle any fix tag
     void reset();
 
+    /**
+     * logic here
+     *
+     * @tag: fix tag
+     * @buffer,@index,@length: value
+     *
+     * */
     void handleFixTag(int tag, ByteBuffer buffer, int index, int length);
 
     // get the result record

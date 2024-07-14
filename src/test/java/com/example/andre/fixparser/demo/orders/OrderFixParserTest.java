@@ -6,6 +6,7 @@ import com.example.andre.fixparser.demo.orders.fields.OrderFields;
 import com.example.andre.fixparser.demo.orders.records.CancelOrderRecord;
 import com.example.andre.fixparser.demo.orders.records.NewSingleOrderRecord;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
@@ -50,7 +51,7 @@ class OrderFixParserTest extends FixParserTestBase {
         assertEquals( "S207027", new String(order.getByteArrayAttribute(OrderFields.Symbol, new byte[OrderFields.Symbol.length])).trim());
         assertEquals( "20240712-22:14:19.508", new String(order.getByteArrayAttribute(OrderFields.TransactTime, new byte[OrderFields.TransactTime.length])).trim());
 
-        System.out.println(order);
+        // System.out.println(order);
     }
 
     @Test
