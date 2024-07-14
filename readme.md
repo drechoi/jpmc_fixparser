@@ -32,6 +32,5 @@ Implementation - Simple:
 Test coverage around 80%
 
 ## Performance (for OrderParser) 
-handle around 1,000,000 message per second
-No GC triggered after initiation
-0 memory allocation after initiation
+- handle around 1,000,000 message per second
+- 0 memory allocation after initiation
