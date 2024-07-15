@@ -7,6 +7,7 @@ package com.example.andre.fixparser.api.utils;
 public class Constants {
 
     public static final byte WILDCARD_BYTE = '*';
+    public static final byte DEFAULT_SEPARATOR = '|';
 
     /**
      * max length allowed for a fix msg

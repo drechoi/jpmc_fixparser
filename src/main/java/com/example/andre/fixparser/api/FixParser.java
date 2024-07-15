@@ -36,7 +36,7 @@ public class FixParser<T extends Record> {
         }
     }
 
-    private static final Configuration DEFAULT_CONFIG = new Configuration((byte)'|', Constants.MAX_FIELD_SIZE);
+    private static final Configuration DEFAULT_CONFIG = new Configuration(Constants.DEFAULT_SEPARATOR, Constants.MAX_FIELD_SIZE);
 
     private final Logger logger = Logger.getLogger(FixParser.class.getName());
 
