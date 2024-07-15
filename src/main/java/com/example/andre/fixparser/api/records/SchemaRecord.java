@@ -40,7 +40,8 @@ public class SchemaRecord  extends ByteBufferRecord {
                     sb.append(getIntAttribute(field));
                     break;
                 case PRICE:
-                    // price now same as byte array
+                    sb.append(getPriceAttribute(field));
+                    break;
                 case BYTE_ARRAY:
                     Arrays.fill(tmp, (byte)0);
                     sb.append("\"").append(new String(getByteArrayAttribute(field, tmp)).trim()).append("\"");

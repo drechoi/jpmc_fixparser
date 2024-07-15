@@ -35,5 +35,10 @@ public class Constants {
      */
     public static final int OBJECT_POOL_MODE = 0;
 
+    /**
+     * for price, handle 6 decimal places and convert to long ( x 1000000)
+     * */
+    public static final int DEFAULT_DECIMAL_PLACES = 6;
+
     public static final boolean DEBUG = false;
 }

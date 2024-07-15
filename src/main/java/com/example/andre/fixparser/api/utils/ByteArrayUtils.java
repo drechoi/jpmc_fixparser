@@ -9,81 +9,104 @@ public class ByteArrayUtils {
      * price is stored as byte[16]
      * */
     public static long parsePriceAsLong(byte[] bytes, int index, int length){
-        throw new UnsupportedOperationException("Decimal to long is not implemented");
+        return parsePriceAsLong(bytes, index, length, Constants.DEFAULT_DECIMAL_PLACES);
     }
-
-    public static int parseInt(ByteBuffer buffer, int beginIndex, int endIndex){
-        return parseInt(buffer, beginIndex, endIndex, 10);
-    }
-
-    public static int parseInt(ByteBuffer buffer, int beginIndex, int endIndex, int radix)
-            throws NumberFormatException {
-        return parseInt(buffer.array(), beginIndex, endIndex, radix);
-
-    }
-
-    public static int parseInt(byte[] bytes, int beginIndex, int endIndex)
-            throws NumberFormatException {
-        return parseInt(bytes, beginIndex, endIndex, 10);
-    }
-
 
     /**
-     * Byte buffer (GC free) version parseInt (modified from Integer.parseInt)
+     * default decimal places = 6
+     * parsing i.e. (long)price * 1_000_000
+     * */
+    public static long parsePriceAsLong(byte[] bytes, int beginIndex, int length, int dp)
+            throws NumberFormatException {
+        // assume always in decimal
+        final int radix = 10;
+
+        long result = 0;
+        boolean isDecimal = false;
+        int decimalPlacesLeft = dp;
+        boolean isNegative = false;
+
+        for(int i=beginIndex; i< beginIndex + length; i++){
+            if(i == 0){
+                if (bytes[i] == '-'){
+                    isNegative = true;
+                    continue;
+                } else if (bytes[i] == '+') {
+                    continue;
+                }
+            }
+
+            if(bytes[i] == '.') {
+                if(isDecimal) {
+                    throw new NumberFormatException("More than 1 '.'");
+                }
+                // handle decimal place
+                isDecimal = true;
+                continue;
+            } else if (isDecimal){
+                if (decimalPlacesLeft <= 0) {
+                    // already handle all deciaml places.
+                    // round the number (round down)
+                    break;
+                }
+                decimalPlacesLeft--;
+            }
+
+            int digit = Character.digit((char)bytes[i], radix);
+
+            if(digit < 0) {
+                throw new NumberFormatException("Invalid number " + new String(bytes, beginIndex, length));
+            }
+
+            result *= radix;
+            result += digit;
+        }
+
+        for (int i=0; i<decimalPlacesLeft; i++){
+            // pad 0;
+            result *= radix;
+        }
+
+        return isNegative ? -result : result;
+    }
+
+    public static int parseInt(ByteBuffer buffer, int beginIndex, int length)
+            throws NumberFormatException {
+        return parseInt(buffer.array(), beginIndex, length);
+    }
+
+    /**
+     * byte array version of Integer.parseInt
      * otherwise, need to use Integer.parseInt(new String(s)) which will allocate new memory
      * */
-    public static int parseInt(byte[] bytes, int beginIndex, int endIndex, int radix)
+    public static int parseInt(byte[] bytes, int beginIndex, int length)
             throws NumberFormatException {
-//        buffer = Objects.requireNonNull(buffer);
+        // assume always in decimal
+        final int radix = 10;
 
-        if (beginIndex < 0 || beginIndex > endIndex || endIndex > bytes.length) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (radix < Character.MIN_RADIX) {
-            throw new NumberFormatException("radix " + radix +
-                    " less than Character.MIN_RADIX");
-        }
-        if (radix > Character.MAX_RADIX) {
-            throw new NumberFormatException("radix " + radix +
-                    " greater than Character.MAX_RADIX");
-        }
+        int result = 0;
+        boolean isNegative = false;
 
-        boolean negative = false;
-        int i = beginIndex;
-        int limit = -Integer.MAX_VALUE;
-
-        if (i < endIndex) {
-            char firstChar = (char) bytes[i];
-            if (firstChar < '0') { // Possible leading "+" or "-"
-                if (firstChar == '-') {
-                    negative = true;
-                    limit = Integer.MIN_VALUE;
-                } else if (firstChar != '+') {
-                    throw new NumberFormatException("firstChar < '0' but not +/-");
-                }
-                i++;
-                if (i == endIndex) { // Cannot have lone "+" or "-"
-                    throw new NumberFormatException("Cannot have lone + or -");
+        for(int i=beginIndex; i< beginIndex + length; i++){
+            if(i == 0){
+                if (bytes[i] == '-'){
+                    isNegative = true;
+                    continue;
+                } else if (bytes[i] == '+') {
+                    continue;
                 }
             }
-            int multmin = limit / radix;
-            int result = 0;
-            while (i < endIndex) {
-                // Accumulating negatively avoids surprises near MAX_VALUE
-                int digit = Character.digit((char)bytes[i], radix);
-                if (digit < 0 || result < multmin) {
-                    throw new NumberFormatException("failed to parse int ");
-                }
-                result *= radix;
-                if (result < limit + digit) {
-                    throw new NumberFormatException("Unknown digit ");
-                }
-                i++;
-                result -= digit;
+
+            int digit = Character.digit((char)bytes[i], radix);
+
+            if(digit < 0) {
+                throw new NumberFormatException("Invalid number " + new String(bytes, beginIndex, length));
             }
-            return negative ? result : -result;
-        } else {
-            throw new NumberFormatException("");
+
+            result *= radix;
+            result += digit;
         }
+
+        return isNegative ? -result : result;
     }
 }

@@ -15,7 +15,7 @@ Implementation - Order:
 - this demo can handle New Order message (35=D) and Cancel Order message (35=F) 
 - parsed values are stored in byte buffer
 - this is a GC free implementation, all memory are allocated in the initial phrase
-- for demo purposes, the result only support 2 data type: integer and byte array
+- for demo purposes, the result only support 3 data type: integer and Price (as long) byte array
 
 Implementation - Simple:
 - all parsed values are stored as Integer-String pairs

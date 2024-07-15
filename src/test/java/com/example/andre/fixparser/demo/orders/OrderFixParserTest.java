@@ -46,7 +46,7 @@ class OrderFixParserTest extends FixParserTestBase {
         assertEquals( "USD", new String(order.getByteArrayAttribute(OrderFields.Currency, new byte[OrderFields.Currency.length])).trim());
         assertEquals( 7000, order.getIntAttribute(OrderFields.OrderQty));
         assertEquals( "1", new String(order.getByteArrayAttribute(OrderFields.OrdType, new byte[OrderFields.OrdType.length])).trim());
-        assertEquals( "12.501", new String(order.getByteArrayAttribute(OrderFields.Price, new byte[OrderFields.Price.length])).trim());
+        assertEquals( 12_501_000L, order.getPriceAttribute(OrderFields.Price));
         assertEquals(1, order.getIntAttribute(OrderFields.Side));
         assertEquals( "S207027", new String(order.getByteArrayAttribute(OrderFields.Symbol, new byte[OrderFields.Symbol.length])).trim());
         assertEquals( "20240712-22:14:19.508", new String(order.getByteArrayAttribute(OrderFields.TransactTime, new byte[OrderFields.TransactTime.length])).trim());

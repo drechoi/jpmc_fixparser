@@ -100,7 +100,7 @@ public class FixParser<T extends Record> {
                 parserBuffer.clear();
             }else if(b == '='){
                 // parserBuffer contain tag value before '='
-                currentTag = ByteArrayUtils.parseInt(parserBuffer, 0, bufferIndex,10);
+                currentTag = ByteArrayUtils.parseInt(parserBuffer, 0, bufferIndex);
 
                 // reset index and buffer
                 bufferIndex = 0;

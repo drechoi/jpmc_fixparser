@@ -28,6 +28,8 @@ public abstract class ByteBufferRecord implements Record {
                 buffer.putInt(getFieldOffset(field), ByteArrayUtils.parseInt(value, index, length));
                 break;
             case PRICE:
+                buffer.putLong(getFieldOffset(field), ByteArrayUtils.parsePriceAsLong(value, index, length));
+                break;
             case BYTE_ARRAY:
                 if(length > field.length){
                     logger.warning("Content too long, is trimming" + new String(value, index, length));
@@ -58,7 +60,7 @@ public abstract class ByteBufferRecord implements Record {
      * please use getByteArrayAttribute
      * */
     public final long getPriceAttribute(Field field) {
-        throw new UnsupportedOperationException("Price is not really supported");
+        return buffer.getLong(getFieldOffset(field));
     }
 
     public abstract int getFieldOffset(Field field);
